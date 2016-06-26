@@ -1,9 +1,13 @@
 package com.javadocs.file;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Time;
@@ -16,7 +20,7 @@ public class FileApi {
 		File file = new File("E:/Javadocs/","renamed.txt");
 	//	file.createNewFile();
 		
-		/*File file1 = new File("E:/Javadocs/","my1.docx");
+		/*File file1 = new File("my1.docx");
 		file1.createNewFile();*/
 	
 		/*File file2 = new File("E:/Javadocs/");
@@ -34,24 +38,43 @@ public class FileApi {
 		return file;
 	}
 	
-	public void writer(File file){
+	public File writer(File file){
 		try {
 			FileWriter writer = new FileWriter(file);
 			System.out.println(file.getName());
 			writer.write("File read and write operation ");
 			writer.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return file;
 	}
+	
+	public void readwrite(File writtenFile) throws Exception{
+		FileReader reader = new FileReader(writtenFile);
+		FileWriter writer = new FileWriter(new File("E:/Javadocs/","new.txt"));
+		int asciiValue = reader.read();
+		
+		while(asciiValue != -1){
+			System.out.print((char)asciiValue);
+			writer.write(asciiValue);
+			asciiValue = reader.read();
+		}
+		reader.close();
+		writer.close();
+	}
+	
 	
 	public static void main(String args[]){
 		FileApi api = new FileApi();
 		try {
 			File file = api.createNewFile();
-			api.writer(file);
+			File writtenFile = api.writer(file);
+			api.readwrite(writtenFile);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
