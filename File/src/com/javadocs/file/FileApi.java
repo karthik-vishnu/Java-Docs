@@ -67,6 +67,18 @@ public class FileApi {
 		writer.close();
 	}
 	
+	public void bufferedReaderWriter(File writtenFile)throws Exception{
+		BufferedReader reader = new BufferedReader(new FileReader(writtenFile));
+		File newFile = new File("E:/Javadocs/","bufferedReaderWriter.txt");
+		newFile.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+		int len = reader.readLine().length();
+		System.out.println(len);
+		
+		writer.write(reader.readLine(), 0, len);
+		writer.close();
+	}
+	
 	
 	public static void main(String args[]){
 		FileApi api = new FileApi();
@@ -74,7 +86,7 @@ public class FileApi {
 			File file = api.createNewFile();
 			File writtenFile = api.writer(file);
 			api.readwrite(writtenFile);
-			
+			api.bufferedReaderWriter(writtenFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
