@@ -2,20 +2,12 @@ package com.javadocs.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.CharArrayReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.sql.Time;
-import java.util.Date;
-import java.util.Locale;
 
 public class FileApi {
 
