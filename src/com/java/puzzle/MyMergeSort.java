@@ -1,4 +1,4 @@
-package com.java.puzzle;
+package com.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +10,7 @@ import java.util.List;
 public class MyMergeSort {
 	int[] input;
 	int[] tempAry;
-	
+	int count = 0;
 	public void globalize(int[] input) {
 		this.input = input;
 		tempAry = new int[input.length];
@@ -26,26 +26,28 @@ public class MyMergeSort {
 	}
 	
 	public void merge(int low, int middle, int high) {
-		middle = middle+1;
-		int index =low;
-		while(low<= middle && middle <= high) {
-			if(input[low] < input[middle]) {
-				tempAry[index] = input[low];
-				++index;
-				++low;
-				if(low > middle) {
-					tempAry[high] = input[low];
-				}
-			} else {
-				tempAry[index] = input[middle];
-				++index;
-				++middle;
-				if(middle > high) {
-					tempAry[high] = input[low];
-				}
-			}
-		}
 		
+		for(int i= low; i<=high; i++) {
+			tempAry[i] = input[i];
+		}
+		int index = low;
+		middle = middle+1;
+		while(low<= middle && middle <= high) {
+			if(tempAry[low] <= tempAry[middle]) {
+				input[index] = tempAry[low];
+				++low;
+				
+			} else {
+				input[index] = tempAry[middle];
+				++middle;
+			}
+			++index;
+		}
+		while(low <= middle) {
+			input[index] =tempAry[low];
+			++low;
+			++index;
+		}
 	}
 	
 	public static void main(String args[]) {
