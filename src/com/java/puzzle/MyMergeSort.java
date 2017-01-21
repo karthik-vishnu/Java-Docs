@@ -31,15 +31,15 @@ public class MyMergeSort {
 			tempAry[i] = input[i];
 		}
 		int index = low;
-		middle = middle+1;
-		while(low<= middle && middle <= high) {
-			if(tempAry[low] <= tempAry[middle]) {
+		int mid = middle+1;
+		while(low<= middle && mid <= high) {
+			if(tempAry[low] <= tempAry[mid]) {
 				input[index] = tempAry[low];
 				++low;
 				
 			} else {
-				input[index] = tempAry[middle];
-				++middle;
+				input[index] = tempAry[mid];
+				++mid;
 			}
 			++index;
 		}
@@ -51,7 +51,7 @@ public class MyMergeSort {
 	}
 	
 	public static void main(String args[]) {
-		int[] a = {2,10,1,5,40,65,78,63};
+		int[] a = {1,2,10,1,5,40,65,78,63};
 		
 		MyMergeSort mergeSort = new MyMergeSort();
 		mergeSort.globalize(a);
