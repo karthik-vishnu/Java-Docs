@@ -1,4 +1,4 @@
-package com.java;
+package com.java.puzzle;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
