@@ -25,10 +25,11 @@ public class ExpressionEvaluation {
 			
 			if(input[i] == '+' || input[i] == '-' || input[i] ==  '*' || input[i] == '/') {
 				if(!operands.isEmpty() && hasPrecedence(operands.peek(), input[i])) {
+					values.push(applyOperand(operands.pop(), values.pop(), values.pop()));
+				} 
 					
-				} else {
-					operands.push(input[i]);
-				}
+				operands.push(input[i]);
+			
 			}
 		}
 		return values;
@@ -40,6 +41,25 @@ public class ExpressionEvaluation {
 		} else {
 			return true;
 		}
+	}
+	
+	public int applyOperand(Character operand, Integer value1, Integer value2) {
+		int value = 0;
+		switch(operand) {
+			case '+':
+				value = value1 + value2;
+				break;
+			case '-':
+				value = value1 - value2;
+				break;
+			case '*':
+				value = value1 - value2;
+				break;
+			case '/':
+				value = value1 / value2;
+				break;
+		}
+		return value;
 	}
 	
 	public static void main(String[] args) {
