@@ -8,62 +8,70 @@ import java.util.Stack;
 
 public class ExpressionEvaluation {
 	
-	public Stack<Integer> evaluate(String expression) {
-		Stack<Integer> values = new Stack<Integer>();
-		Stack<Character> operands = new Stack<Character>();
+	public int evaluate(String expression) {
+		Stack<Integer> numbers = new Stack<Integer>();
+		Stack<Character> operand = new Stack<Character>();
 		
-		char[] input = expression.toCharArray();
-		
-		for (int i = 0; i < input.length; i++) {
-			if(input[i] >= '0' && input[i] <= '9') {
-				StringBuilder builder = new StringBuilder();
-				while(i < input.length && input[i] >= '0' && input[i] <= '9') {
-					builder.append(input[i++]);
-				}
-				values.push(Integer.valueOf(builder.toString()));
+		char[] chars = expression.toCharArray();
+		int count = 0;
+		for(int i=0; i<chars.length; i++) {
+			StringBuilder builder = new StringBuilder();
+			
+			while(i<chars.length && chars[i]>= '0' && chars[i] <= '9') {
+				builder.append(chars[i++]);
 			}
+			numbers.push(Integer.valueOf(builder.toString()));
 			
-			if(input[i] == '+' || input[i] == '-' || input[i] ==  '*' || input[i] == '/') {
-				if(!operands.isEmpty() && hasPrecedence(operands.peek(), input[i])) {
-					values.push(applyOperand(operands.pop(), values.pop(), values.pop()));
-				} 
+			if(i<chars.length && (chars[i] == '+' || chars[i] == '-' || chars[i] == '*' || chars[i] == '/')) {
+				if(!operand.isEmpty()) {
 					
-				operands.push(input[i]);
-			
+					if(hasPrecedence(operand.peek(), chars[i])) {
+						numbers.push(applyOperand(numbers.pop(), numbers.pop(), operand.pop()));
+						operand.push(chars[i]);
+					} else {
+						operand.push(chars[i]);
+					}
+				} else {
+					operand.push(chars[i]);
+				}
 			}
 		}
-		return values;
+		while(numbers.size() > 1) {
+			numbers.push(applyOperand(numbers.pop(), numbers.pop(), operand.pop()));
+		}
+		return numbers.pop();
 	}
 	
-	public boolean hasPrecedence(Character operand1 , Character operand2) {
-		if((operand1 == '/' || operand1 == '*') && (operand2 == '+' || operand2 =='-')) {
+	public boolean hasPrecedence(char first, char second) {
+		if(first == '+' || first == '-' && second == '*' || second =='/') {
 			return false;
+		} else if(first == '*' || first == '/' && second =='*' || second == '/') {
+			return true;
 		} else {
 			return true;
 		}
 	}
 	
-	public int applyOperand(Character operand, Integer value1, Integer value2) {
-		int value = 0;
-		switch(operand) {
+	public int applyOperand(int a, int b, char c) {
+		int result = 0;
+		switch(c) {
 			case '+':
-				value = value1 + value2;
+				result = b+a;
 				break;
 			case '-':
-				value = value1 - value2;
+				result = b-a;
 				break;
 			case '*':
-				value = value1 - value2;
+				result = b*a;
 				break;
 			case '/':
-				value = value1 / value2;
+				result = b/a;
 				break;
 		}
-		return value;
+		return result;
 	}
-	
 	public static void main(String[] args) {
 		ExpressionEvaluation evaluation = new ExpressionEvaluation();
-		System.out.println(evaluation.evaluate("2+3*2"));
+		System.out.println(evaluation.evaluate("1/2*3"));
 	}
 }
