@@ -1,4 +1,4 @@
-package com.java;
+package com.javadocs.io;
 
 import java.io.File;
 import java.io.FileInputStream;
