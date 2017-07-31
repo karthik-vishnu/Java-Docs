@@ -36,8 +36,11 @@ public class PrettyPrint {
 		for (int i = 0; i < json.length(); i++) {
 			Character character = json.charAt(i);
 			if(character.equals(',')) {
+				int index = i -1;
+				Character prevChar = json.charAt(index);
 				System.out.println(character);
 				System.out.print(space);
+			
 			} else if (character.equals('{') || character.equals('[')) {
 				space = space + "\t";
 				System.out.println(character);
@@ -45,7 +48,7 @@ public class PrettyPrint {
 			} else if (character.equals('}') || character.equals(']')) {
 				System.out.println();
 				space = space.substring(0, space.length()-1);
-				System.out.println(space + character);
+				System.out.print(space + character);
 			} else 
 				System.out.print(character);
 		}
